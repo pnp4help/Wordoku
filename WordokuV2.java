@@ -2,13 +2,16 @@
  *Project Name: Wordoku
  *Author: Patva Viraj (19IT117)
  * 		   Shah Axat (19IT126)
- *Project Version: 1.0.0.0
+ *Project Version: 2.0.0.0
  */
 import java.util.*;
 import java.io.*;
-public class WordokuV1 {
+import java.lang.reflect.Array;
+public class WordokuV2 {
      static char wordoku[][]=new char[9][9];
      static char[] toBeFilled=new char[9];
+     final static int numberOfElementsToBeRemoved=45;
+     static int[] fixedAddresses=new int[81-numberOfElementsToBeRemoved];
     public static void main(String[] args)/*The MAIN main. The Project Starts from here.*/
     {
         clearScreen();
@@ -19,7 +22,7 @@ public class WordokuV1 {
         switch(n)
         {
             case 1:/*Game play starts here*/
-                generatePuzzle();/*Generates Puzzle*/
+                startGameplay();/*Generates Puzzle*/
                 break;
             case 2:/*Displays Set of Rules*/
                 printRules();
@@ -32,12 +35,13 @@ public class WordokuV1 {
             case 0:/*Exits the Game*/
                 System.exit(0);
             default:/*For Invalid inputs*/
-                System.out.printf("\n\t\t\t\t\t\t\t   INVALID INPUT!\n");
-                System.out.printf("\t\t\t\t\t\t\t PRESS R TO RESTART\n");
+            	System.out.print("\n\t\t\t\t\t\t\t    INVALID INPUT!\n");
+        		System.out.print("\t\t\t\t\t\t\t  PRESS R TO RESTART\n");
                 scan.next();
                 main(args);
                 break;
         }
+        scan.close();
     }
     
     public static void clearScreen(){
@@ -52,42 +56,55 @@ public class WordokuV1 {
     
     public static void printHomeScreen()/*Prints the Home Screen.*/
     {
-        clearScreen();
-        System.out.printf("\n\n");
-        System.out.printf("\t\t\t\t\t\t       <<<<<<<<<<<<<<<<<<<<<\n");
-        System.out.printf("\t\t\t\t\t\t\tLET'S PLAY WORDOKU!\n");
-        System.out.printf("\t\t\t\t\t\t       >>>>>>>>>>>>>>>>>>>>>\n\n\n\n\n");
-        System.out.printf("\t\t\t\t\t\t\t Press 1: To Play\n");
-        System.out.printf("\t\t\t\t\t\t\t Press 2: For Rules\n");
-        System.out.printf("\t\t\t\t\t\t\t Press 0: To Exit\n\n");
-        System.out.printf("\t\t\t\t\t\t\t      Enter: ");
+    	clearScreen();
+		System.out.print("\n\n\t\t\t\t\t\t\t <<<<<<<<<<<<<<<<<<<<<\n");
+		System.out.print("\t\t\t\t\t\t\t  LET'S PLAY WORDOKU!\n");
+		System.out.print("\t\t\t\t\t\t\t >>>>>>>>>>>>>>>>>>>>>\n");
+		System.out.print("\n\n\n");
+		System.out.print("\t\t\t\t\t\t\t    Press 1: Play\n");
+		System.out.print("\t\t\t\t\t\t\t    Press 2: Rules\n");
+		System.out.print("\t\t\t\t\t\t\t    Press 0: Exit\n\n\n");
+		System.out.print("\t\t\t\t\t\t\t\tEnter: ");
     }
 
     public static void printRules()/*Prints the rules.*/
     {
-        clearScreen();
-        System.out.printf("\n\n");
-        System.out.printf("\t\t\t\t\t\t       <<<<<<<<<<<<<<<<<<<<<<<\n");
-        System.out.printf("\t\t\t\t\t\t        RULES TO PLAY WORDOKU\n");
-        System.out.printf("\t\t\t\t\t\t       >>>>>>>>>>>>>>>>>>>>>>>\n\n\n\n");
-        System.out.printf("\t\t\t\t      -The Classic Wordoku game involves a grid of 81 squares.\n");
-        System.out.printf("\t\t\t\t-The Grid is Divided into Nine Blocks, each containing Nine Squares.\n");
-        System.out.printf("\t\t\t-Each of the Nine blocks has to contain all the alloted Alphabets within its Squares.\n");
-        System.out.printf("\t\t\t\t     -Each Alphabet can only Appear once in a Row, Column or Box.\n\n");
-        System.out.printf("\t\t\t\t\t\t\t Press 1: To Return\n");
-        System.out.printf("\t\t\t\t\t\t\t Press 0: To Exit\n\n");
-        System.out.printf("\t\t\t\t\t\t\t     Enter: ");
+    	clearScreen();
+		System.out.print("\n\n\t\t\t\t\t\t\t<<<<<<<<<<<<<<<<<<<<<<<\n");
+		System.out.print("\t\t\t\t\t\t\t RULES TO PLAY WORDOKU\n");
+		System.out.print("\t\t\t\t\t\t\t>>>>>>>>>>>>>>>>>>>>>>>\n");
+		System.out.print("\n\n\n");
+		System.out.print("\t\t\t\t     +---------------------------------------------------------+\n");
+		System.out.print("\t\t\t\t     |                                                         |\n");
+		System.out.print("\t\t\t\t     | The Classic Wordoku game involves a grid of 81 squares. |\n");
+		System.out.print("\t\t\t\t     |                                                         |\n");
+		System.out.print("\t\t\t\t     | The Grid is Divided into Nine Blocks, each containing-- |\n");
+		//System.out.print("\t\t\t\t     | nine squares.                                           |\n");
+		System.out.print("\t\t\t\t     |                      nine squares.                      |\n");
+		System.out.print("\t\t\t\t     |                                                         |\n");
+		System.out.print("\t\t\t\t     | Each of the Nine blocks has to contain all the alloted- |\n");
+		System.out.print("\t\t\t\t     |              Alphabets within its Squares.              |\n");
+		System.out.print("\t\t\t\t     |                                                         |\n");
+		System.out.print("\t\t\t\t     | Each Alphabet can only Appear once in a Row, Column or- |\n");
+		System.out.print("\t\t\t\t     |                            Box.                         |\n");
+		System.out.print("\t\t\t\t     |                                                         |\n");
+		System.out.print("\t\t\t\t     +---------------------------------------------------------+\n");
+		System.out.print("\n\n");
+		System.out.print("\t\t\t\t\t\t\t    Press 1: Return\n");
+		System.out.print("\t\t\t\t\t\t\t    Press 0: Exit\n\n\n");
+		System.out.print("\t\t\t\t\t\t\t\tEnter: ");
     }
 
-    public static void generatePuzzle()/*Generates the Puzzle*/
+    public static void startGameplay()/*Generates the Puzzle*/
     {
         int sudoku[][]=new int[9][9];
 
         char[] toBeFilled;
         createSudoku(sudoku);
-        removeElement(45,sudoku);
+        removeElement(numberOfElementsToBeRemoved,sudoku);
         toBeFilled= convertToAlpahbets(sudoku,wordoku);
-        displayPuzzle(wordoku,toBeFilled);
+        fixAddressIdentifier();
+        inputSystem();
     }
 
     public static void createSudoku(int sudoku[][])/*Will generate the sudoku by first filling diagonal and then remaining elements*/
@@ -263,6 +280,22 @@ public class WordokuV1 {
                 return false;
         return true;
     }
+    
+    public static void fixAddressIdentifier()/*Identifies which elements cannot be changed*/
+    {
+    	int k=0;
+    	for(int i=0;i<9;i++)
+    	{
+    		for(int j=0;j<9;j++)
+    		{
+    			if(wordoku[i][j]!=' ')
+    			{
+    				fixedAddresses[k]=(((i+1)*10) + (j+1));
+    				k++;
+    			}
+    		}
+    	}
+    }
 
     public static void displayPuzzle(char wordoku[][],char toBeFilled[])/*prints the puzzle*/
     {
@@ -332,6 +365,75 @@ public class WordokuV1 {
         while (j < lines);
         
         System.out.printf("\t\t\t\t\t\t ");
-        System.out.printf("+-----------+-----------+-----------+\n");
+        System.out.printf("+-----------+-----------+-----------+\n\n\n");
     }
+    
+    public static void inputSystem()
+    {
+    	displayPuzzle(wordoku,toBeFilled);
+    	int n=0,row=0,col=0;
+    	boolean flagN=true,flagC=false;
+    	char c;
+    	Scanner scan=new Scanner(System.in);
+    	System.out.print("\t\t\t\t\t    Enter the Element ID which you want to Edit: ");
+       	n=scan.nextInt();
+       	if(n==0)
+       	{
+       		System.exit(0);
+       	}
+       	if(n>=11 & n<=99 & n%10!=0)/*To check validity of n does it belong to the range*/
+       	{
+       		for(int i=0;i<Array.getLength(fixedAddresses);i++)
+       		{
+       			if(fixedAddresses[i]==n)/*To check if position entered is not a predefined one*/
+       			{
+       				flagN=false;
+       			}
+       		}
+       		
+       		if(flagN)
+       		{
+       			row= n/10;/*row number for element*/
+       			col=n%10;/*column number for element*/
+       			System.out.print("\n\t\t\t\t\t\t       Enter the Character: ");/*Input of element*/
+       	       	c=scan.next().charAt(0);
+       	       	for(int i=0;i<9;i++)
+       	       	{
+       	       		if(c==toBeFilled[i])/*To check validity of character c does it belong to alloted character list*/
+       	       		{
+       	       			flagC=true;
+       	       		}
+       	       	}
+       	       	
+       	       	if(flagC)
+       	       	{
+       	       		wordoku[row-1][col-1]=c;
+       	       		inputSystem();
+       	       	}
+       	       	else
+       	       	{
+       	       	System.out.print("\n\t\t\t\t\t\t\t INVALID CHARACTER!\n");
+       	       	System.out.print("\t\t\t\t\t\t\tPRESS C TO CONTINUE..\n");
+                scan.next();
+                inputSystem();
+       	       	}
+       		}
+       		else
+       		{
+       			System.out.print("\n\t\t\t\t\t     YOU CANNOT CHANGE ELEMENT AT THAT POSITION!!\n");
+       			System.out.print("\t\t\t\t\t\t\t  PRESS C TO CONTINUE..\n");
+                scan.next();
+                inputSystem();
+       		}
+       	}
+       	else
+       	{
+    		System.out.print("\n\t\t\t\t\t\t\t     INVALID INPUT!\n");
+    		System.out.print("\t\t\t\t\t\t\t  PRESS C TO CONTINUE..\n");
+            scan.next();
+            inputSystem();
+       	}
+       	scan.close();
+    }
+    
 }
