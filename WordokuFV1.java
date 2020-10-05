@@ -2,7 +2,7 @@
  *Project Name: Wordoku
  *Author: Patva Viraj (19IT117)
  * 		   Shah Axat (19IT126)
- *Project Version: 1.1.2
+ *Project Version: 1.1.4
  */
 import java.util.*;
 import java.io.*;
@@ -529,6 +529,7 @@ public class WordokuFV1 {
         }
         else if(n==1)/*for checking*/
         {
+            stepCounter++;
             checkWordoku();
         }
         else if(n==2)/*to  reset*/
@@ -540,7 +541,10 @@ public class WordokuFV1 {
             confirmation=scan.next().charAt(0);
             confirmation= Character.toUpperCase(confirmation);
             if(confirmation=='Y')
+            {
+                stepCounter++;
                 resetWordoku();
+            }
             else
                 inputSystem();
         }
