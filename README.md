@@ -4,16 +4,16 @@ Java jdk version: 14.0.2
 
 IDE: IntelliJ Idea
 
-Runtime Enviroment: PowerShell
+The package Wordoku consists of five files:
 
-This version of the project is specially designed for PowerShell. For the best user interface make sure you have set the following settings:
+1. WordokuUI.java- Contains code related to UI of the Game.
 
-Font size: 22/23
+2. InputUI.java- Contains Code related to UI of the Input System.
 
-Font Type: Consolas
+3. Wordoku.java- Contains Code related to the the core logic of the Game.
 
-Font Colour: Black
+4. StopWatch.java- Contains Code related to the stopwatch of the Game.
 
-Background Colour: White
+5. Main.java- This is a runner file.
 
-Use PowerShell in fullscreen mode.
+To run this application download the full 'Wordoku' package and configure it with your IDE. Now simply run the Main.java file and you are good to go.
